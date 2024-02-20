@@ -4,7 +4,7 @@
     
     
     <%
-    List<PersonVo> personList = (List<PersonVo>)request.getAttribute("personList");
+    List<PersonVo> personList = (List<PersonVo>)request.getAttribute("personList"); //문자로 꺼내주기 주소X
     System.out.println(personList);
     %>
 <!DOCTYPE html>
@@ -41,6 +41,11 @@ for (int i=0; i<personList.size(); i++){
 	<tr>
 		<th>회사(company)</th>
 		<td><%=personList.get(i).getCompany()%></td>
+	</tr>
+	<tr>
+		<td><%=personList.get(i).getPersonId() %>
+		<a href="/phonebook3/pbc?action=delete&no=<%=personList.get(i).getPersonId() %>">[삭제]</td>
+		<td>[수정]</td>
 	</tr>
 	
 </table>		

@@ -58,6 +58,10 @@ public class PhonebookController extends HttpServlet {
 			//db에 저장
 			phoneDao.personInsert(personVo); //Dao 에서 만들어준 등록 personInsert 씀
 			
+			/* http://localhost:8080/phonebook3/pbc?action=list 엔터 > 리다이렉트 */
+			
+			response.sendRedirect("http://localhost:8080/phonebook3/pbc?action=list"); //그래서 언제 써야 하는데..?
+			
 			//db에서 전체 데이터 가져오기
 			List<PersonVo> personList = phoneDao.personSelect();
 			
@@ -68,6 +72,86 @@ public class PhonebookController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
 			rd.forward(request, response);
 			
+		}else if("list".equals(action)) {
+			System.out.println("list:리스트");
+			
+			// db 사용
+			PhoneDao phoneDao = new PhoneDao();
+			
+			// 리스트 가져오기
+			List<PersonVo> personList = phoneDao.personSelect();
+			System.out.println(personList);
+			
+			// 데이터담기 포워드
+			request.setAttribute("personList", personList);
+			
+			
+			RequestDispatcher rd= request.getRequestDispatcher("/list.jsp");
+			rd.forward(request, response);
+			
+		}else if("delete".equals(action)) {
+			System.out.println("delete:삭제");
+			int no = Integer.parseInt(request.getParameter("no"));
+			System.out.println(no);
+			
+			//db사용
+			PhoneDao phoneDao = new PhoneDao();
+			
+			//삭제
+			phoneDao.personDelete(no);
+			
+			//리다이렉트
+			response.sendRedirect("/phonebook3/pbc?action=list");
+		
+			//수정폼
+		}else if("uform".equals(action)) {
+				System.out.println("uform:수정폼");
+				
+				//jsp에서 html 그려줘 + 응답해줘 ==> 포워드
+				RequestDispatcher rd = request.getRequestDispatcher("/updateForm.jsp"/*담당자 지정*/);
+				rd.forward(request, response); //포워드 문법
+			} else {
+				response.sendRedirect("/phonebook3/pbc?action=list");
+			}
+			
+			//수정
+			 if("update".equals(action)) {
+				System.out.println("update:수정");
+				
+				String name = request.getParameter("name");
+				String hp = request.getParameter("hp");
+				String company = request.getParameter("company");
+				
+				// vo 로 묶기
+				PersonVo personVo = new PersonVo(name, hp, company);
+				System.out.println(personVo.toString());
+				
+				//db 업데이트
+				PhoneDao phoneDao = new PhoneDao();
+				
+				//db에 저장
+				phoneDao.personUpdate(personVo);
+				
+			
+				
+				/* http://localhost:8080/phonebook3/pbc?action=list 엔터 > 리다이렉트 */
+				
+				/*response.sendRedirect("http://localhost:8080/phonebook3/pbc?action=list"); //그래서 언제 써야 하는데..?*/
+				
+				//db에서 전체 데이터 가져오기
+				List<PersonVo> personList = phoneDao.personSelect();
+				
+				//request에 담기
+				request.setAttribute("personList", personList); //문자열, 주소
+				
+				// 포워드
+				RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
+				rd.forward(request, response);
+				
+				
+	
+			
+		
 		}
 		
 		

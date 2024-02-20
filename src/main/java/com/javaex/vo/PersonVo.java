@@ -4,6 +4,7 @@ public class PersonVo {
 	
 	//필드
 	private int personId;
+	private int newpersonId;
 	private String name;
 	private String hp;
 	private String company;
@@ -15,7 +16,17 @@ public class PersonVo {
 	}
 	
 	
-	
+
+
+	public PersonVo(int personId, int newpersonId) {
+		super();
+		this.personId = personId;
+		this.newpersonId = newpersonId;
+	}
+
+
+
+
 	public PersonVo(String name, String hp, String company) {
 		super();
 		this.name = name;
@@ -33,11 +44,14 @@ public class PersonVo {
 		this.company = company;
 	}
 
-	//메소드-gs
-	
+
+
+	//gs
 	public int getPersonId() {
 		return personId;
 	}
+
+
 
 
 	public void setPersonId(int personId) {
@@ -45,9 +59,27 @@ public class PersonVo {
 	}
 
 
+
+
+	public int getNewpersonId() {
+		return newpersonId;
+	}
+
+
+
+
+	public void setNewpersonId(int newpersonId) {
+		this.newpersonId = newpersonId;
+	}
+
+
+
+
 	public String getName() {
 		return name;
 	}
+
+
 
 
 	public void setName(String name) {
@@ -55,9 +87,13 @@ public class PersonVo {
 	}
 
 
+
+
 	public String getHp() {
 		return hp;
 	}
+
+
 
 
 	public void setHp(String hp) {
@@ -65,22 +101,28 @@ public class PersonVo {
 	}
 
 
+
+
 	public String getCompany() {
 		return company;
 	}
+
+
 
 
 	public void setCompany(String company) {
 		this.company = company;
 	}
 
-	//메소드 일반
+
+
+
 	@Override
 	public String toString() {
-		return "PersonVo [personId=" + personId + ", name=" + name + ", hp=" + hp + ", company=" + company + "]";
+		return "PersonVo [personId=" + personId + ", newpersonId=" + newpersonId + ", name=" + name + ", hp=" + hp
+				+ ", company=" + company + "]";
 	}
 	
-	
-	
-
 }
+
+
